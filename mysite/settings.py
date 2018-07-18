@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+import datetime
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -31,14 +32,23 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_mongoengine',
+    'refreshtoken',
+    'django_filters',
+
     'user',
     'blog',
+    'pages',
 ]
 
 MIDDLEWARE = [
@@ -79,9 +89,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'mysite', 
+        # 'USER': 'root',
+        # 'PASSWORD': 'WaF84383941@',
+        # 'HOST': '182.61.54.28',    
+        # 'PORT': '3306',         
     }
 }
 
+LOGIN_URL = "/login/"
+
+AUTH_USER_MODEL = "user.UserProfile"
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -105,9 +124,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -120,3 +139,42 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'UPLOADED_FILES_USE_URL': False,
+}
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
+}
+
+
+SUIT_CONFIG = {  # suit页面配置
+    'ADMIN_NAME': '配置平台',  # 登录界面提示
+    'LIST_PER_PAGE': 20,  # 表中显示行数
+    'MENU': ({'label': u'用户组管理', 'app': 'auth',
+              'icon': 'icon-lock',  # 显示左边菜单的图标
+              'models': ('auth.User', 'auth.Group')},  # 每一个字典表示左侧菜单的一栏
+             {'label': u'用户管理', 'app': 'user',
+              'icon': 'icon-user',
+              'models': ('user.User', 'user.Group')},
+             ),
+    # label表示name，app表示上边的install的app，models表示用了哪些models
+}

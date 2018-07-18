@@ -10,6 +10,7 @@ from rest_framework import status
 from random import choice
 from rest_framework import permissions
 from rest_framework import authentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from rest_framework_jwt.serializers import jwt_encode_handler, jwt_payload_handler
@@ -81,6 +82,7 @@ class UserViewset(CreateModelMixin, mixins.UpdateModelMixin, mixins.RetrieveMode
     """
     用户
     """
+    permission_classes = (IsAuthenticated, )
     serializer_class = UserRegSerializer
     queryset = User.objects.all()
     authentication_classes = (JSONWebTokenAuthentication, authentication.SessionAuthentication )

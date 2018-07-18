@@ -15,7 +15,10 @@ class UserProfile(AbstractUser):
     gender = models.CharField(max_length=6, choices=(("male", u"男"), ("female", "女")), default="female", verbose_name="性别")
     mobile = models.CharField(null=True, blank=True, max_length=11, verbose_name="电话")
     email = models.EmailField(max_length=100, null=True, blank=True, verbose_name="邮箱")
-
+    image = models.ImageField(upload_to="images/%Y/%m", default="images/user.png", blank=True, max_length=100,
+                              verbose_name="头像")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="创建时间")
+    
     class Meta:
         verbose_name = "用户"
         verbose_name_plural = verbose_name
