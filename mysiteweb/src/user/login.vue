@@ -33,5 +33,5 @@ export default {
 </script>
 
 <style>
-  @import "../assets/css/style.css"
+  @import "../assets/css/login_style.css"
 </style>
