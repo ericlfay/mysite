@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework import mixins, viewsets
 
-# Create your views here.
+from .models import Blog
+from .serializers import BlogSerializer
+
+class BlogListSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+	queryset = Blog.objects.all()
+	serializer_class = BlogSerializer

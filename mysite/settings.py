@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -62,6 +63,36 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mysite.urls'
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    '*'
+)
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+    'VIEW',
+)
+
+CORS_ALLOW_HEADERS = (
+    'XMLHttpRequest',
+    'X_FILENAME',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'Pragma',
+)
 
 TEMPLATES = [
     {
@@ -170,11 +201,18 @@ SUIT_CONFIG = {  # suit页面配置
     'ADMIN_NAME': '配置平台',  # 登录界面提示
     'LIST_PER_PAGE': 20,  # 表中显示行数
     'MENU': ({'label': u'用户组管理', 'app': 'auth',
-              'icon': 'icon-lock',  # 显示左边菜单的图标
-              'models': ('auth.User', 'auth.Group')},  # 每一个字典表示左侧菜单的一栏
+              'icon': 'icon-lock',  
+              'models': ('auth.User', 'auth.Group')},  
              {'label': u'用户管理', 'app': 'user',
               'icon': 'icon-user',
               'models': ('user.User', 'user.Group')},
+             {'label': u'页面管理', 'app': 'user',
+              'icon': 'icon-file',
+              'models': ('pages.Navigation')},
+             {'label': u'博客管理', 'app': 'blog',
+              'icon': 'icon-book',
+              'models': ('blog.Blog', 'blog.Category')},
              ),
+
     # label表示name，app表示上边的install的app，models表示用了哪些models
 }

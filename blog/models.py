@@ -34,6 +34,8 @@ class Blog(models.Model):
     excerpt = models.CharField(max_length=200, blank=True, verbose_name="摘要")
     views = models.PositiveIntegerField(default=0, verbose_name="浏览量")
     goods = models.PositiveIntegerField(default=0, verbose_name="点赞量")
+    image = models.ImageField(upload_to="images/%Y/%m", default="images/pic.png", blank=True, max_length=100,
+                              verbose_name="插图")
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, blank=True)

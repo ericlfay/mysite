@@ -21,4 +21,4 @@ class NavigationParentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Navigation
-        fields = ('id', 'nav_img', 'nav_text', 'nav_sub', 'has_submenu')
+        fields = ('id', 'nav_img', 'nav_text', 'nav_sub', 'has_submenu', 'nav_url')
