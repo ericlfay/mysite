@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils.html  import strip_tags
 
 import markdown
 
@@ -59,7 +60,7 @@ class Blog(models.Model):
                 'markdown.extensions.extra',
                 'markdown.extensions.codehilite',
             ])
-            self.excerpt = strip_tags(md.convert(self.body))[:54]
+            self.excerpt = strip_tags(md.convert(self.contents))[:200]
 
         super(Blog, self).save(*args, **kwargs)
 

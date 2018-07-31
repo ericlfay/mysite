@@ -7,7 +7,7 @@
     <nav class="topnav" id="topnav">
       <ul>
         <li v-for="item in items" :key="item.key">
-            <a href="index.html">{{ item.nav_text }}</a>
+        <router-link :to="{name: item.nav_url}">{{ item.nav_text }} </router-link>
           </li>
       </ul>
     </nav>
