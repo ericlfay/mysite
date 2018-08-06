@@ -44,4 +44,8 @@ export default {
   @import "./assets/css/base.css";
   @import "./assets/css/index.css";
   @import "./assets/css/m.css";
+    .el-pager > .number {
+    padding: 0px;
+    background:none;
+  }
 </style>
