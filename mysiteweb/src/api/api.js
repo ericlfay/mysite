@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export let host = 'http://127.0.0.1:8000'
+export let host = 'http://ericlfay.cn:8080/'
 
 export const apiMenuList = params => { return axios.get(`${host}/pages/nav/`) }
 

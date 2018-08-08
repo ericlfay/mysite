@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.utils.html  import strip_tags
 
 import markdown
+from mdeditor.fields import MDTextField
 
 User = get_user_model()
 
@@ -29,7 +30,7 @@ class Tag(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(max_length=50, verbose_name="标题")
-    contents = models.TextField(verbose_name="正文")
+    contents = MDTextField(verbose_name="正文")
     author = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
     excerpt = models.CharField(max_length=200, blank=True, verbose_name="摘要")
