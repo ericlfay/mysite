@@ -56,3 +56,14 @@ class User(models.Model):
 
     def __str__(self):
         return self.username
+
+
+class RealUser(models.Model):
+    realname = models.CharField(max_length=100, verbose_name="姓名")
+
+    class Meta:
+        verbose_name = "真实用户姓名"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.username

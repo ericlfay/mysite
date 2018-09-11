@@ -4,7 +4,7 @@ from rest_framework import mixins, viewsets
 from rest_framework.response import Response
 
 from .serializers import UserSerializer
-from .models import User, USER_POSITION, SIGN_USER_CHOICES
+from .models import User, USER_POSITION, SIGN_USER_CHOICES, RealUser
 
 
 class UserViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -24,5 +24,10 @@ class UserViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.Lis
         return Response({"status": "success"})
 
     def list(self, request, *args, **kwargs):
+        realuser = RealUser.objects.all()
+        result = []
+        for user in realuser:
+            result.append(user.realname)
 
-        return Response({"result": USER_POSITION})
+
+        return Response({"result": USER_POSITION, "realname": result})
