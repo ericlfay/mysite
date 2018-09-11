@@ -7,7 +7,7 @@ from .serializers import UserSerializer
 from .models import User, USER_POSITION, SIGN_USER_CHOICES
 
 
-class UserViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class UserViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -22,3 +22,7 @@ class UserViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.G
         user.position = data["position"]
         user.save()
         return Response({"status": "success"})
+
+    def list(self, request, *args, **kwargs):
+
+        return Response({"result": USER_POSITION})
