@@ -40,6 +40,7 @@ USER_POSITION = (
     )
 
 class User(models.Model):
+    openid = models.CharField(max_length=100, verbose_name="openid")
     username = models.CharField(max_length=100, verbose_name="昵称")
     wechat_username = models.CharField(max_length=100, verbose_name="微信用户名")
     realname = models.CharField(max_length=100, null=True, blank=True, verbose_name="真实姓名")
@@ -47,7 +48,7 @@ class User(models.Model):
     user_tag = models.CharField(choices=SIGN_USER_CHOICES, max_length=5, verbose_name="用户类型")
     position = models.CharField(choices=USER_POSITION, null=True, blank=True, max_length=5, verbose_name="常踢位置")
     add_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
-    image = models.ImageField(upload_to="images/%Y/%m", blank=True, max_length=100,
+    image = models.ImageField(upload_to="images/%Y/%m", blank=True, null=True, max_length=100,
                               verbose_name="头像")
 
     class Meta:
